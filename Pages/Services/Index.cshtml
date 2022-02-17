@@ -1,0 +1,81 @@
+﻿@page "/{id:int?}"
+@model Beauty2.Pages.Services.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].AppointmentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].Artist.ArtistName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service[0].ServicePayments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ServiceID.Services)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.ServiceID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
+                @foreach (var item in Model.Service)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a href="C:\Users\Timar Liana\OneDrive\Desktop\MDP\Laborator01\Beauty2\Pages\Shared\_Layout.cshtml">C:\Users\Timar Liana\OneDrive\Desktop\MDP\Laborator01\Beauty2\Pages\Shared\_Layout.cshtml</a>
+                    @Html.DisplayFor(modelItem => item.AppointmentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist.ArtistName)
+                </td>
+                <td>
+                    @{
+                        foreach (var payment in item.ServicePayments)
+                        {
+                            @payment.Payment.ID @: @payment.Payment.PaymentName <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
